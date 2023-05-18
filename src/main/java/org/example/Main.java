@@ -4,6 +4,10 @@ import com.sun.jna.Library;
 import com.sun.jna.Native;
 import com.sun.jna.ptr.IntByReference;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 import static org.example.Main.QRNG.INSTANCE;
 
 public class Main {
@@ -39,8 +43,27 @@ public class Main {
     public static void main(String[] args) {
         QRNG lib = INSTANCE;
 
-        String username = "eduardberlin";
-        String password = "Kc99xl9hOJFY";
+        Properties prop = new Properties();
+        String username = "";
+        String password = "";
+
+        try (InputStream input = Main.class.getClassLoader().getResourceAsStream("config.properties")) {
+
+            if (input == null) {
+                System.out.println("Sorry, unable to find config.properties");
+                return;
+            }
+
+            // load a properties file
+            prop.load(input);
+
+            // get the property value and print it out
+            username = prop.getProperty("username");
+            password = prop.getProperty("password");
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
 
         int connectionResult = lib.qrng_connect(username, password);
 
