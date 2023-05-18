@@ -17,6 +17,7 @@ public class Main {
     private static final String SORRY_UNABLE_TO_FIND = "Sorry, unable to find ";
     private static final String USERNAME = "username";
     private static final String PASSWORD = "password";
+    public static final int INT_AMOUNT = 5;
 
     public interface QuantumRandomNumberGenerator extends Library {
         QuantumRandomNumberGenerator INSTANCE = Native.load("lib/libQRNG.dll", QuantumRandomNumberGenerator.class);
@@ -67,31 +68,34 @@ public class Main {
 
         if (checkResult(lib.qrng_connect(username, password), CONNECTION_FAILED)) {
 
-
-            // Create an array to hold the integers returned by the QRNG
-            int[] intArray = new int[10];  // Change the size of this array based on your needs
-
-            // Create an IntByReference instance to hold the actual number of integers received
-            IntByReference actualIntsReceived = new IntByReference();
-
-            // Call the qrng_get_int_array method
-            int getArrayResult = lib.qrng_get_int_array(intArray, intArray.length, actualIntsReceived);
-
-            if (getArrayResult != 0) {
-                // Failed to get integer array, handle this case
-                System.out.println("Failed to get integer array!");
-            } else {
-                // Successfully got the integer array, print it
-                System.out.println("Received " + actualIntsReceived.getValue() + " integers from the QRNG:");
-                for (int i = 0; i < actualIntsReceived.getValue(); i++) {
-                    System.out.println(intArray[i]);
-                }
-            }
-
+            // get QRNG integers
+            getAndPrintIntegerArray(lib);
 
             // disconnect after work
             lib.qrng_disconnect();
             System.out.println(DISCONNECTED_FROM_THE_SERVICE);
+        }
+    }
+
+    private static void getAndPrintIntegerArray(QuantumRandomNumberGenerator lib) {
+        // Create an array to hold the integers returned by the QRNG
+        int[] intArray = new int[INT_AMOUNT];  // Change the size of this array based on your needs
+
+        // Create an IntByReference instance to hold the actual number of integers received
+        IntByReference actualIntsReceived = new IntByReference();
+
+        // Call the qrng_get_int_array method
+        int getArrayResult = lib.qrng_get_int_array(intArray, intArray.length, actualIntsReceived);
+
+        if (getArrayResult != 0) {
+            // Failed to get integer array, handle this case
+            System.out.println("Failed to get integer array!");
+        } else {
+            // Successfully got the integer array, print it
+            System.out.println("Received " + actualIntsReceived.getValue() + " integers from the QRNG:");
+            for (int i = 0; i < actualIntsReceived.getValue(); i++) {
+                System.out.println(intArray[i]);
+            }
         }
     }
 
