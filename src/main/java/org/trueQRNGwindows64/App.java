@@ -16,7 +16,7 @@ public class App {
     private static final String SORRY_UNABLE_TO_FIND = "Sorry, unable to find ";
     private static final String USERNAME = "username";
     private static final String PASSWORD = "password";
-    public static final int INT_AMOUNT = 5;
+    public static final int INT_AMOUNT = 7;
 
     public interface QuantumRandomNumberGenerator extends Library {
         QuantumRandomNumberGenerator INSTANCE = Native.load("lib/libQRNG.dll", QuantumRandomNumberGenerator.class);
