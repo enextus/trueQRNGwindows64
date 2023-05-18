@@ -73,7 +73,7 @@ public class App {
 
             // disconnect after work
             lib.qrng_disconnect();
-            System.out.println(DISCONNECTED_FROM_THE_SERVICE);
+            System.out.println("\n" + DISCONNECTED_FROM_THE_SERVICE);
         }
     }
 
@@ -92,7 +92,7 @@ public class App {
             System.out.println("Failed to get integer array!");
         } else {
             // Successfully got the integer array, print it
-            System.out.println("Received " + actualIntsReceived.getValue() + " integers from the QRNG:");
+            System.out.println("Received " + actualIntsReceived.getValue() + " integers from the QRNG:\n");
             for (int i = 0; i < actualIntsReceived.getValue(); i++) {
                 System.out.println(intArray[i]);
             }
