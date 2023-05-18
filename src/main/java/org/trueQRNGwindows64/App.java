@@ -9,7 +9,6 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class App {
-
     private static final String CONFIG_FILE_PATH = "config.properties";
     private static final String CONNECTION_FAILED = "Connection failed!";
     private static final String OPERATION_SUCCESSFUL = "Operation successful.";
@@ -45,6 +44,7 @@ public class App {
     }
 
     public static void main(String[] args) {
+
         QuantumRandomNumberGenerator lib = QuantumRandomNumberGenerator.INSTANCE;
 
         Properties prop = new Properties();
@@ -66,7 +66,7 @@ public class App {
             System.exit(-1);
         }
 
-        if (checkResult(lib.qrng_connect(username, password), CONNECTION_FAILED)) {
+        if (checkResult(lib.qrng_connect(username, password))) {
 
             // get QRNG integers
             getAndPrintIntegerArray(lib);
@@ -99,9 +99,9 @@ public class App {
         }
     }
 
-    private static boolean checkResult(int result, String errorMessage) {
+    private static boolean checkResult(int result) {
         if (result != 0) {
-            System.out.println(errorMessage);
+            System.out.println(App.CONNECTION_FAILED);
             return false;
         }
         System.out.println(OPERATION_SUCCESSFUL);
