@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class Main {
+public class App {
 
     private static final String CONFIG_FILE_PATH = "config.properties";
     private static final String CONNECTION_FAILED = "Connection failed!";
@@ -51,7 +51,7 @@ public class Main {
         String username = "";
         String password = "";
 
-        try (InputStream input = Main.class.getClassLoader().getResourceAsStream(CONFIG_FILE_PATH)) {
+        try (InputStream input = App.class.getClassLoader().getResourceAsStream(CONFIG_FILE_PATH)) {
             if (input == null) {
                 System.out.println(SORRY_UNABLE_TO_FIND + CONFIG_FILE_PATH);
                 System.exit(-1);
