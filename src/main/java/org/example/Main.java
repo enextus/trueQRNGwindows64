@@ -13,31 +13,22 @@ import static org.example.Main.QRNG.INSTANCE;
 public class Main {
     public interface QRNG extends Library {
 
-        //        QRNG INSTANCE = Native.load("C:\\Projects\\QRNG_\\lib\\libQRNG.dll", QRNG.class);
+        /*   QRNG INSTANCE = Native.load("C:\\Projects\\QRNG_\\lib\\libQRNG.dll", QRNG.class);
+             String path = Paths.get("").toAbsolutePath().toString();
+             QRNG INSTANCE = Native.load(path + "/lib/libQRNG.dll", QRNG.class);*/
 
-        /*        String path = Paths.get("").toAbsolutePath().toString();
-                QRNG INSTANCE = Native.load(path + "/lib/libQRNG.dll", QRNG.class);*/
         QRNG INSTANCE = Native.load("lib/libQRNG.dll", QRNG.class);
 
         int qrng_connect(String username, String password);
-
         int qrng_connect_SSL(String username, String password);
-
         int qrng_get_byte_array(byte[] byte_array, int byte_array_size, IntByReference actual_bytes_rcvd);
-
         int qrng_get_double_array(double[] double_array, int double_array_size, IntByReference actual_doubles_rcvd);
-
         int qrng_get_int_array(int[] int_array, int int_array_size, IntByReference actual_ints_rcvd);
-
-        int qrng_generate_password(StringBuilder tobeused_password_chars, StringBuilder generated_password, int password_length);
-
-        int qrng_connect_and_get_byte_array(StringBuilder username, StringBuilder password, byte[] byte_array, int byte_array_size, IntByReference actual_bytes_rcvd);
-
-        int qrng_connect_and_get_double_array(StringBuilder username, StringBuilder password, double[] double_array, int double_array_size, IntByReference actual_doubles_rcvd);
-
-        int qrng_connect_and_get_int_array(StringBuilder username, StringBuilder password, int[] int_array, int int_array_size, IntByReference actual_ints_rcvd);
-
-        int qrng_disconnect();
+        int qrng_generate_password(String tobeused_password_chars, String generated_password, int password_length);
+        int qrng_connect_and_get_byte_array(String username, String password, byte[] byte_array, int byte_array_size, IntByReference actual_bytes_rcvd);
+        int qrng_connect_and_get_double_array(String username, String password, double[] double_array, int double_array_size, IntByReference actual_doubles_rcvd);
+        int qrng_connect_and_get_int_array(String username, String password, int[] int_array, int int_array_size, IntByReference actual_ints_rcvd);
+        void qrng_disconnect();
     }
 
     public static void main(String[] args) {
@@ -72,6 +63,10 @@ public class Main {
             System.out.println("Connection failed!");
         } else {
             System.out.println("Connection established.");
+
+            // Do your work here, then disconnect.
+            lib.qrng_disconnect();
+            System.out.println("Disconnected from the service.");
         }
     }
 
