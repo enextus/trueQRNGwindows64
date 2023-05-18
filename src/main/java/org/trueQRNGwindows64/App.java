@@ -99,7 +99,7 @@ public class App {
         }
     }
 
-    private static boolean checkResult(int result) {
+    static boolean checkResult(int result) {
         if (result != 0) {
             System.out.println(App.CONNECTION_FAILED);
             return false;
