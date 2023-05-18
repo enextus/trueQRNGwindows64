@@ -52,6 +52,7 @@ public class App {
         String password = "";
 
         try (InputStream input = App.class.getClassLoader().getResourceAsStream(CONFIG_FILE_PATH)) {
+
             if (input == null) {
                 System.out.println(SORRY_UNABLE_TO_FIND + CONFIG_FILE_PATH);
                 System.exit(-1);
@@ -68,10 +69,10 @@ public class App {
 
         if (checkResult(lib.qrng_connect(username, password))) {
 
-            // get QRNG integers
+            // get some QRNG-integers
             getAndPrintIntegerArray(lib);
 
-            // disconnect after work
+            // disconnect
             lib.qrng_disconnect();
             System.out.println("\n" + DISCONNECTED_FROM_THE_SERVICE);
         }
