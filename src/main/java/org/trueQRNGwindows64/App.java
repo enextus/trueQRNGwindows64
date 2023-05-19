@@ -25,13 +25,13 @@ public class App {
 
         void qrng_disconnect();
 
+        int qrng_get_int_array(int[] int_array, int int_array_size, IntByReference actual_ints_rcvd);
+
         int qrng_connect_SSL(String username, String password);
 
         int qrng_get_byte_array(byte[] byte_array, int byte_array_size, IntByReference actual_bytes_rcvd);
 
         int qrng_get_double_array(double[] double_array, int double_array_size, IntByReference actual_doubles_rcvd);
-
-        int qrng_get_int_array(int[] int_array, int int_array_size, IntByReference actual_ints_rcvd);
 
         int qrng_generate_password(String tobeused_password_chars, String generated_password, int password_length);
 
