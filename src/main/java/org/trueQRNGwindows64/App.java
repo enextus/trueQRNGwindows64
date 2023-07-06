@@ -1,5 +1,8 @@
 package org.trueQRNGwindows64;
 
+import org.trueQRNGwindows64.provider.QRNGConnectionManager;
+import org.trueQRNGwindows64.service.QRNGNumberFetcher;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -10,13 +13,8 @@ public class App {
     private static final String USERNAME = "username";
     private static final String PASSWORD = "password";
     private static final String EMPTYSTRING = "";
-    public static final int INT_AMOUNT = 10;
-    public static final String FAILED_TO_GET_INTEGER_ARRAY = "Failed to get integer array!";
-    public static final String RECEIVED = "Received ";
-    public static final String INTEGERS_FROM_THE_QRNG = " integers from the QRNG:\n";
 
     public static void main(String[] args) {
-
         Properties prop = new Properties();
         String username = EMPTYSTRING, password = EMPTYSTRING;
 
@@ -36,9 +34,10 @@ public class App {
         }
 
         QRNGConnectionManager qrngConnectionManager = new QRNGConnectionManager(username, password);
+
         if (qrngConnectionManager.connect()) {
             QRNGNumberFetcher qrngNumberFetcher = new QRNGNumberFetcher();
-            qrngNumberFetcher.getAndPrintIntegerArray();
+            QRNGNumberFetcher.getAndPrintIntegerArray();
             qrngConnectionManager.disconnect();
         }
     }

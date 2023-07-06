@@ -1,35 +1,27 @@
-package org.trueQRNGwindows64;
+package org.trueQRNGwindows64.service;
 
 import java.util.Arrays;
-import java.util.Random;
 
-public class K2olmogorovSmirnovTest {
-
-    public static boolean test(Random random, int sampleSize, double alpha) {
-        // Генерируем выборку из случайных чисел
-        double[] sample = new double[sampleSize];
-        for (int i = 0; i < sampleSize; i++) {
-            sample[i] = random.nextDouble();
-        }
-
+public class KolmogorovSmirnov {
+    public static boolean test(int[] sample, double alpha) {
         // Сортируем выборку по возрастанию
         Arrays.sort(sample);
 
         // Вычисляем эмпирическую функцию распределения
-        double[] empiricalCDF = new double[sampleSize];
-        for (int i = 0; i < sampleSize; i++) {
-            empiricalCDF[i] = (double) (i + 1) / sampleSize;
+        double[] empiricalCDF = new double[sample.length];
+        for (int i = 0; i < sample.length; i++) {
+            empiricalCDF[i] = (double) (i + 1) / sample.length;
         }
 
         // Вычисляем теоретическую функцию распределения (равномерное распределение)
-        double[] theoreticalCDF = new double[sampleSize];
-        for (int i = 0; i < sampleSize; i++) {
-            theoreticalCDF[i] = (double) (i + 1) / sampleSize;
+        double[] theoreticalCDF = new double[sample.length];
+        for (int i = 0; i < sample.length; i++) {
+            theoreticalCDF[i] = (double) (i + 1) / sample.length;
         }
 
         // Вычисляем максимальное отклонение между эмпирической и теоретической функциями распределения
         double maxDeviation = 0.0;
-        for (int i = 0; i < sampleSize; i++) {
+        for (int i = 0; i < sample.length; i++) {
             double deviation = Math.abs(empiricalCDF[i] - theoreticalCDF[i]);
             if (deviation > maxDeviation) {
                 maxDeviation = deviation;
@@ -37,9 +29,10 @@ public class K2olmogorovSmirnovTest {
         }
 
         // Вычисляем критическое значение
-        double criticalValue = Math.sqrt(-0.5 * Math.log(alpha / 2) / sampleSize);
+        double criticalValue = Math.sqrt(-0.5 * Math.log(alpha / 2) / sample.length);
 
         // Проверяем условие
         return maxDeviation <= criticalValue;
     }
+
 }

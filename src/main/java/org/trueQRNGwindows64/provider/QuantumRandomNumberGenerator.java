@@ -1,10 +1,10 @@
-package org.trueQRNGwindows64;
+package org.trueQRNGwindows64.provider;
 
 import com.sun.jna.Library;
 import com.sun.jna.Native;
 import com.sun.jna.ptr.IntByReference;
 
-import static org.trueQRNGwindows64.QRNGConnectionManager.LIB_LIB_QRNG_DLL_PATH;
+import static org.trueQRNGwindows64.provider.QRNGConnectionManager.LIB_LIB_QRNG_DLL_PATH;
 
 public interface QuantumRandomNumberGenerator extends Library {
     QuantumRandomNumberGenerator INSTANCE = Native.load(LIB_LIB_QRNG_DLL_PATH, QuantumRandomNumberGenerator.class);
